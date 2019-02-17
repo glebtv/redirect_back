@@ -29,6 +29,9 @@ type Config struct {
 // New initialize redirect back instance
 func New(config *Config) *RedirectBack {
 	if config.SessionManager == nil {
+		if sessionmanager.SessionManager == nil {
+			panic("redirect back inited before session manager")
+		}
 		config.SessionManager = sessionmanager.SessionManager
 	}
 

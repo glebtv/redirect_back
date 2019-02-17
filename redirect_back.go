@@ -11,7 +11,7 @@ import (
 	"github.com/qor/middlewares"
 	"github.com/qor/qor/utils"
 	"github.com/qor/session"
-	"github.com/qor/session/manager"
+	"rscz.ru/rs/sessionmanager"
 )
 
 var returnToKey utils.ContextKey = "redirect_back_return_to"
@@ -29,7 +29,7 @@ type Config struct {
 // New initialize redirect back instance
 func New(config *Config) *RedirectBack {
 	if config.SessionManager == nil {
-		config.SessionManager = manager.SessionManager
+		config.SessionManager = sessionmanager.SessionManager
 	}
 
 	if config.FallbackPath == "" {

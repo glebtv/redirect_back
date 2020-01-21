@@ -116,7 +116,7 @@ func (redirectBack *RedirectBack) RedirectBack(w http.ResponseWriter, req *http.
 	returnTo := req.Context().Value(returnToKey)
 
 	if returnTo != nil {
-		log.Println("redirect back", returnTo)
+		log.Println("redirect back to return", returnTo)
 		http.Redirect(w, req, fmt.Sprint(returnTo), http.StatusSeeOther)
 		return
 	}

@@ -9,11 +9,11 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/qor/middlewares"
 	"github.com/qor/qor/utils"
 	"github.com/qor/session"
 	"rscz.ru/rs/sessionmanager"
-	"github.com/davecgh/go-spew/spew"
 )
 
 var returnToKey utils.ContextKey = "redirect_back_return_to"
@@ -117,6 +117,7 @@ func (redirectBack *RedirectBack) RedirectBack(w http.ResponseWriter, req *http.
 	returnTo := req.Context().Value(returnToKey)
 
 	spew.Dump(returnTo)
+
 	if returnTo != nil && returnTo != "" {
 		log.Println("redirect back to return", returnTo)
 		http.Redirect(w, req, fmt.Sprint(returnTo), http.StatusSeeOther)

@@ -9,7 +9,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/qor/middlewares"
 	"github.com/qor/qor/utils"
 	"github.com/qor/session"
@@ -115,8 +114,6 @@ func (redirectBack *RedirectBack) compile() {
 // RedirectBack redirect back to last visited page
 func (redirectBack *RedirectBack) RedirectBack(w http.ResponseWriter, req *http.Request) {
 	returnTo := req.Context().Value(returnToKey)
-
-	spew.Dump(returnTo)
 
 	if returnTo != nil && returnTo != "" {
 		log.Println("redirect back to return", returnTo)

@@ -3,6 +3,7 @@ package redirect_back
 import (
 	"context"
 	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"path/filepath"
@@ -115,16 +116,20 @@ func (redirectBack *RedirectBack) RedirectBack(w http.ResponseWriter, req *http.
 	returnTo := req.Context().Value(returnToKey)
 
 	if returnTo != nil {
+		log.Println("redirect back", returnTo)
 		http.Redirect(w, req, fmt.Sprint(returnTo), http.StatusSeeOther)
 		return
 	}
 
 	if referrer := req.Referer(); referrer != "" {
 		if u, _ := url.Parse(referrer); !redirectBack.IgnorePath(u.Path) {
+			log.Println("redirect to referrer", referrer)
 			http.Redirect(w, req, referrer, http.StatusSeeOther)
 			return
 		}
 	}
+
+	log.Println("redirect to fallback", redirectBack.config.FallbackPath)
 
 	http.Redirect(w, req, redirectBack.config.FallbackPath, http.StatusSeeOther)
 }
